@@ -18,7 +18,7 @@ const RSVPForm = () => {
   const [name, setName] = useState("");
 
   const handleResponseChange = (event) => {
-    setValue(event.target.value);
+    setResponse(event.target.value);
   };
 
   const handleNameChange = (event) => {
