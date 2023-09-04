@@ -1,36 +1,76 @@
-import { Checkbox, Stack, TextField, Typography } from "@mui/material";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import {
+  Stack,
+  TextField,
+  Typography,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  Button,
+} from "@mui/material";
+import firebase from "../../firebase";
 
 const RSVPForm = () => {
   const formRef = useRef();
-  const [value, setValue] = React.useState("Yes");
+  const [response, setResponse] = useState("Yes");
+  const [name, setName] = useState("");
 
-  const handleChange = (event) => {
+  const handleResponseChange = (event) => {
     setValue(event.target.value);
   };
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const submitToFirebase = (event) => {
+    event.preventDefault();
+
+    fetch(
+      "https://wedding-rsvp-7f989-default-rtdb.firebaseio.com/guests.json",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          response: response,
+        }),
+      }
+    );
+  };
+
   return (
     <Stack direction={"row"} justifyContent={"space-between"}>
-      <TextField placeholder="Please Enter Your Name" />
-      <FormControl>
-        <FormLabel id="demo-controlled-radio-buttons-group">
-          Your Response
-        </FormLabel>
-        <RadioGroup
-          row
-          aria-labelledby="demo-controlled-radio-buttons-group"
-          name="controlled-radio-buttons-group"
-          value={value}
-          onChange={handleChange}
-        >
-          <FormControlLabel value="female" control={<Radio />} label="Yes" />
-          <FormControlLabel value="male" control={<Radio />} label="No" />
-        </RadioGroup>
-      </FormControl>
+      <form ref={formRef} onSubmit={submitToFirebase}>
+        <TextField
+          name="name"
+          placeholder="Please Enter Your Name"
+          onChange={handleNameChange}
+          required
+        />
+        <FormControl>
+          <FormLabel id="demo-controlled-radio-buttons-group">
+            Your Response
+          </FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-controlled-radio-buttons-group"
+            name="response"
+            value={response}
+            onChange={handleResponseChange}
+          >
+            <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
+            <FormControlLabel value="No" control={<Radio />} label="No" />
+          </RadioGroup>
+        </FormControl>
+        <Button variant="contained" type="submit">
+          Submit
+        </Button>
+      </form>
     </Stack>
   );
 };
