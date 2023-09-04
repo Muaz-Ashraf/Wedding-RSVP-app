@@ -5,8 +5,7 @@ import WeddingCard from "./components/WeddingCard";
 
 const App = () => {
   return (
-    <Container>
-      <Typography sx={{ textAlign: "center" }}>Wedding App</Typography>
+    <Container maxWidth="lg" sx={{ mt: "5rem" }}>
       <WeddingCard />
       <RSVPForm />
     </Container>
