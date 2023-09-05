@@ -22,8 +22,20 @@ const WeddingCard = () => {
         alignItems: "center",
         flexDirection: "column",
         gap: "1rem",
+        py: "3rem",
+        px: "0.5rem",
+        position: "relative",
       }}
     >
+      <img
+        src="flowers.png"
+        style={{
+          position: "absolute",
+          top: -50,
+          left: -50,
+          overflow: "visible",
+        }}
+      />
       <CardHeader title="Wedding Invitation" />
       <CardContent
         sx={{
@@ -39,14 +51,15 @@ const WeddingCard = () => {
         </Typography>
         <Typography fontSize={"2rem"}>𝓣𝓤𝓑𝓐 & 𝓜𝓤𝓐𝓩</Typography>
         <Stack direction={"row"} justifyContent={"space-between"}>
-          <Typography>Date</Typography>
+          <Typography fontWeight={"bold"}>Date</Typography>
           <Typography>24 December 2023</Typography>
         </Stack>
         <Stack direction={"row"} justifyContent={"space-between"}>
-          <Typography>Time</Typography> <Typography>1 to 4 pm</Typography>
+          <Typography fontWeight={"bold"}>Time</Typography>{" "}
+          <Typography>1 to 4 pm</Typography>
         </Stack>
         <Stack direction={"row"} justifyContent={"space-between"}>
-          <Typography>Venue</Typography>
+          <Typography fontWeight={"bold"}>Venue</Typography>
           <Typography>Dera Dari Restaurant C-12</Typography>
         </Stack>
       </CardContent>
